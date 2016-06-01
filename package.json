@@ -1,0 +1,17 @@
+{
+  "name": "sentencediff",
+  "version": "0.0.1",
+  "description": "Differ returns the difference in words between two strings.",
+  "main": "src/Differ.js",
+  "dependencies": {
+    "colors": "^1.1.2"
+  },
+  "scripts": {
+    "test": "node_modules/jasmine-node/bin/jasmine-node spec"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
+  }
+}
