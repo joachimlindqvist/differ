@@ -14,7 +14,7 @@ SameFinder.prototype.loopChunks = function(func) {
 }
 
 SameFinder.prototype.isSame = function(foundIndex) {
-    return foundIndex !== -1 && foundIndex > this.lastFoundIndex && foundIndex - this.lastFoundIndex < 3
+    return foundIndex !== -1;
 }
 
 SameFinder.prototype.addChunk = function(originalIndex, foundIndex, chunks) {
@@ -29,12 +29,25 @@ SameFinder.prototype.addChunk = function(originalIndex, foundIndex, chunks) {
 SameFinder.prototype.determineChunk = function(index) {
 
     var original = this.original.get(index);
-    var foundIndex = this.updated.indexOf(original, this.lastFoundIndex);
+    var begin = this.beginSearchIndex();
+    var foundIndex = this.updated.indexOf(original, begin);
 
     if (this.isSame(foundIndex)) {
-        this.addChunk(index, foundIndex, original);
         this.setLastFoundIndex(foundIndex);
+        this.removeHitsAfterIndex(foundIndex);
+        this.addChunk(index, foundIndex, original);
     }
+}
+
+SameFinder.prototype.beginSearchIndex = function() {
+    var chunkIndex = this.same.length - 2;
+    return chunkIndex >= 0 ? this.same[chunkIndex].index : 0;
+}
+
+SameFinder.prototype.removeHitsAfterIndex = function(foundIndex) {
+    this.same = this.same.filter(function(item) {
+        return item.index < foundIndex;
+    });
 }
 
 SameFinder.prototype.setLastFoundIndex = function(index) {

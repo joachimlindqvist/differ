@@ -5,7 +5,7 @@ describe('Differ', function() {
 
     it("should return a return a Difference object", function() {
         var differ = new Differ('first', 'second');
-        expect(differ.diff()).toEqual(jasmine.any(Difference))
+        expect(differ.diff()).toEqual(jasmine.any(Difference));
     });
 
     describe('Difference', function() {
