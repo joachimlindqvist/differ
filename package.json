@@ -1,5 +1,5 @@
 {
-  "name": "sentencediff",
+  "name": "differ",
   "version": "0.0.1",
   "description": "Differ returns the difference in words between two strings.",
   "main": "src/Differ.js",
