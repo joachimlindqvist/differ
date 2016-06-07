@@ -11,7 +11,7 @@
     "debug": "node --debug-brk node_modules/jasmine-node/bin/jasmine-node --verbose spec",
     "inspector": "./node_modules/node-inspector/bin/inspector.js"
   },
-  "author": "",
+  "author": "Joachim Lindqvist <lindqvist.joachim@gmail.com> (http://joachimlindqvist.se)",
   "license": "MIT",
   "devDependencies": {
     "jasmine-node": "^1.14.5",
