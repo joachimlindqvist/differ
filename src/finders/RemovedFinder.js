@@ -1,13 +1,13 @@
 
-var RemovedFinder = function(same, original) {
-    this.same = same;
+var RemovedFinder = function(unchanged, original) {
+    this.unchanged = unchanged;
     this.original = original;
     this.removed = [];
     this.currentIndex = 0;
 }
 
-RemovedFinder.prototype.originalIndex = function(sameIndex) {
-    return this.same[sameIndex] ? this.same[sameIndex].originalIndex : this.original.length;
+RemovedFinder.prototype.originalIndex = function(unchangedIndex) {
+    return this.unchanged[unchangedIndex] ? this.unchanged[unchangedIndex].originalIndex : this.original.length;
 }
 
 RemovedFinder.prototype.indexHasChanged = function(originalIndex) {
@@ -33,14 +33,14 @@ RemovedFinder.prototype.advanceCurrentIndex = function(originalIndex) {
     this.currentIndex = originalIndex + 1;
 }
 
-RemovedFinder.prototype.loopSameChunks = function(func) {
-    for (var sameIndex = 0; sameIndex < this.same.length + 1; sameIndex++) {
-        func.call(this, sameIndex);
+RemovedFinder.prototype.loopUnchangedChunks = function(func) {
+    for (var unchangedIndex = 0; unchangedIndex < this.unchanged.length + 1; unchangedIndex++) {
+        func.call(this, unchangedIndex);
     }
 }
 
-RemovedFinder.prototype.determineChunk = function(sameIndex) {
-    var originalIndex = this.originalIndex(sameIndex);
+RemovedFinder.prototype.determineChunk = function(unchangedIndex) {
+    var originalIndex = this.originalIndex(unchangedIndex);
 
     if (this.indexHasChanged(originalIndex)) {
         this.addChunks(this.removedChunks(originalIndex));
@@ -54,7 +54,7 @@ RemovedFinder.prototype.result = function() {
 }
 
 RemovedFinder.prototype.get = function() {
-    this.loopSameChunks(this.determineChunk);
+    this.loopUnchangedChunks(this.determineChunk);
     return this.result();
 }
 

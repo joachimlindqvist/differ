@@ -2,7 +2,7 @@ var Chunkizer = require('./Chunkizer');
 var Chunks = require('./Chunks');
 var RemovedFinder = require('./finders/RemovedFinder');
 var AddedFinder = require('./finders/AddedFinder');
-var SameFinder = require('./finders/SameFinder');
+var UnchangedFinder = require('./finders/UnchangedFinder');
 var Difference = require('./Difference');
 
 function Differ(original, updated) {
@@ -24,18 +24,18 @@ Differ.prototype.chunkize = function(text) {
 
 Differ.prototype.diff = function(asString) {
 
-    var same = this.same();
-    var removed = this.removed(same);
-    var added = this.added(same);
+    var unchanged = this.unchanged();
+    var removed = this.removed(unchanged);
+    var added = this.added(unchanged);
 
-    var combinedChunks = [].concat(same, removed, added);
+    var combinedChunks = [].concat(unchanged, removed, added);
     this.difference = new Difference(this.order(combinedChunks));
 
     return this.difference;
 }
 Differ.prototype.order = function(chunks) {
 
-    var typeOrder = { same: 0, removed: 2, added: 1 };
+    var typeOrder = { unchanged: 0, removed: 2, added: 1 };
 
     chunks.sort(function(a, b) {
 
@@ -49,19 +49,19 @@ Differ.prototype.order = function(chunks) {
     return chunks;
 }
 
-Differ.prototype.removed = function(same) {
-    var removedFinder = new RemovedFinder(same, this.chunks.original);
+Differ.prototype.removed = function(unchanged) {
+    var removedFinder = new RemovedFinder(unchanged, this.chunks.original);
     return removedFinder.get();
 }
 
-Differ.prototype.added = function(same) {
-    var addedFinder = new AddedFinder(same, this.chunks.updated);
+Differ.prototype.added = function(unchanged) {
+    var addedFinder = new AddedFinder(unchanged, this.chunks.updated);
     return addedFinder.get();
 }
 
-Differ.prototype.same = function() {
-    var sameFinder = new SameFinder(this.chunks.original, this.chunks.updated);
-    return sameFinder.get();
+Differ.prototype.unchanged = function() {
+    var unchangedFinder = new UnchangedFinder(this.chunks.original, this.chunks.updated);
+    return unchangedFinder.get();
 }
 
 module.exports = Differ;

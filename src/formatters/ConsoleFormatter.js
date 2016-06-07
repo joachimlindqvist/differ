@@ -10,7 +10,7 @@ ConsoleFormatter.prototype.operatorForType = function(type) {
     var operators = {
         'removed': '-',
         'added': '+',
-        'same': '=',
+        'unchanged': '=',
     };
 
     return operators[type];
@@ -35,7 +35,7 @@ ConsoleFormatter.prototype.openChunk = function(formatted, operator) {
 ConsoleFormatter.prototype.colors = function(type) {
 
     var colors = {
-        'same': { 'bgColor': 'bgBlack', 'color': 'white' },
+        'unchanged': { 'bgColor': 'bgBlack', 'color': 'white' },
         'removed': { 'bgColor': 'bgRed', 'color': 'black' },
         'added': { 'bgColor': 'bgGreen', 'color': 'black' },
     };

@@ -24,8 +24,8 @@ describe('Differ', function() {
         it("should return correct difference when original is longer than updated", function() {
             var differ = new Differ("1 2 1 1 1 1", "1 2 3");
             var result = [
-                { type: 'same', index: 0, chunks: ['1 '] },
-                { type: 'same', index: 1, chunks: ['2 '] },
+                { type: 'unchanged', index: 0, chunks: ['1 '] },
+                { type: 'unchanged', index: 1, chunks: ['2 '] },
                 { type: 'removed', index: 2, chunks: ['1 ', '1 ', '1 ', '1'] },
                 { type: 'added', index: 2, chunks: ['3'] }
             ];
@@ -35,8 +35,8 @@ describe('Differ', function() {
         it("should return correct difference when original is shorter than updated", function() {
             var differ = new Differ("1 2 3", "1 2 1 1 1 1");
             var result = [
-                { type: 'same', index: 0, chunks: ['1 '] },
-                { type: 'same', index: 1, chunks: ['2 '] },
+                { type: 'unchanged', index: 0, chunks: ['1 '] },
+                { type: 'unchanged', index: 1, chunks: ['2 '] },
                 { type: 'removed', index: 2, chunks: ['3'] },
                 { type: 'added', index: 2, chunks: ['1 ', '1 ', '1 ', '1'] }
             ];
@@ -62,10 +62,10 @@ describe('Differ', function() {
         it("should return all unchanged when nothing has changed", function() {
             var differ = new Differ("1 2 3 4", "1 2 3 4");
             var result = [
-                { type: 'same', index: 0, chunks: ['1 '] },
-                { type: 'same', index: 1, chunks: ['2 '] },
-                { type: 'same', index: 2, chunks: ['3 '] },
-                { type: 'same', index: 3, chunks: ['4'] },
+                { type: 'unchanged', index: 0, chunks: ['1 '] },
+                { type: 'unchanged', index: 1, chunks: ['2 '] },
+                { type: 'unchanged', index: 2, chunks: ['3 '] },
+                { type: 'unchanged', index: 3, chunks: ['4'] },
             ];
             expectDiffToEqual(differ.diff(), result);
         });
