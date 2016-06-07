@@ -40,7 +40,7 @@ SameFinder.prototype.determineChunk = function(index) {
 }
 
 SameFinder.prototype.beginSearchIndex = function() {
-    var chunkIndex = this.same.length - 2;
+    var chunkIndex = this.same.length - 1;
     return chunkIndex >= 0 ? this.same[chunkIndex].index : 0;
 }
 
