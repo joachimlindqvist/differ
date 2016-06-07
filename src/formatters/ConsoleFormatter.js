@@ -52,7 +52,7 @@ ConsoleFormatter.prototype.format = function() {
 
             var printColors = this.colors(item.type);
 
-            formatted += colors[printColors.bgColor](colors[printColors.color](chars.toString() + ' '));
+            formatted += colors[printColors.bgColor](colors[printColors.color](chars.toString()));
             this.currentType = item.type;
 
         }.bind(this));

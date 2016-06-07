@@ -8,8 +8,9 @@ function Chunkizer(str) {
 Chunkizer.prototype.get = function() {
 
     var chunks = new Chunks();
+    var matches = this.matches();
 
-    this.matches().forEach(function(match) {
+    matches.forEach(function(match) {
         chunks.add(new Chunk(match));
     });
 
@@ -17,16 +18,7 @@ Chunkizer.prototype.get = function() {
 }
 
 Chunkizer.prototype.matches = function () {
-
-    var pattern = /([^\s]+)/g;
-    var matches = [];
-    var match = null;
-
-    while (match = pattern.exec(this.str)) {
-        matches.push(match[1]);
-    }
-
-    return matches;
+    return this.str.match(/([^\s]+\s*)/g) || [];
 };
 
 module.exports = Chunkizer;
