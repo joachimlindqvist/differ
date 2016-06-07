@@ -59,6 +59,12 @@ describe('Differ', function() {
             expectDiffToEqual(differ.diff(), result);
         });
 
+        it("should return empty array when original and updated is empty", function() {
+            var differ = new Differ("", "");
+            var result = [];
+            expectDiffToEqual(differ.diff(), result);
+        });
+
         it("should return all unchanged when nothing has changed", function() {
             var differ = new Differ("1 2 3 4", "1 2 3 4");
             var result = [
