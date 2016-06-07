@@ -4,6 +4,10 @@ var Difference = function(difference) {
     this.difference = difference;
 };
 
+Difference.prototype.get = function() {
+    return this.difference;
+}
+
 Difference.prototype.format = function(formatAs) {
     var formatter = FormatterFactory.create(formatAs, this.difference);
     return formatter.format();
@@ -16,7 +20,7 @@ Difference.prototype.chunks = function() {
     });
 
     var chunksFlat =  Array.prototype.concat.apply([], chunks);
-    
+
     return chunksFlat.map(function(chunk) {
         return chunk.chars;
     });
